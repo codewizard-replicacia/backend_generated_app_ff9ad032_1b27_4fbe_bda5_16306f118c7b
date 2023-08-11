@@ -8,14 +8,28 @@ logging:
           jpa: TRACE      
 odata:
   jpa:
-    punit_name: generated_app
-    root_packages: com.mycompany.group234
+    punit_name: Trippin
+    root_packages: com.refapps.trippin
 server:
   port: 8080
 spring:
+  datasource:
+           driver-class-name: org.postgresql.Driver
+           url: jdbc:postgresql://52.87.29.53:5432/postgres
+           password: password
+           username: postgres
   liquibase:
     change-log: classpath:db/liquibase_changelog.xml
     enabled: true
   servlet:
     multipart:
       enabled: false
+eclipselink:
+   ddl:
+       auto:
+            create:
+                   delete: false
+                 
+
+jwt:
+  secret: replicacia
