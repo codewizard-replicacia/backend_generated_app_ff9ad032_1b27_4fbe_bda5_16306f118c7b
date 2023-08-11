@@ -2,10 +2,10 @@ package com.mycompany.group234.filters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-package com.mycompany.group234.Exception.ErrorResponse;
-package com.mycompany.group234.Exception.InvalidTokenException;
-package com.mycompany.group234.Exception.RestExceptionHandler;
-package com.mycompany.group234.util.JwtTokenUtil;
+import com.mycompany.group234.Exception.ErrorResponse;
+import com.mycompany.group234.Exception.InvalidTokenException;
+import com.mycompany.group234.Exception.RestExceptionHandler;
+import com.mycompany.group234.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -26,8 +26,8 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 @Component
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
-  private final JwtTokenUtil tokenUtil;
-  private final RestExceptionHandler exceptionHandler;
+  private final JwtTokenUtil tokenUtil = new JwtTokenUtil();
+  private final RestExceptionHandler exceptionHandler = new RestExceptionHandler();
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -41,10 +41,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
           tokenUtil.validateToken(jwtToken);
           filterChain.doFilter(request, response);
         } catch (IllegalArgumentException e) {
-          log.error("Unable to get JWT Token");
+          logger.error("Unable to get JWT Token");
           handleException(response, "Unable to get JWT Token");
         } catch (ExpiredJwtException e) {
-          log.error("JWT Token has expired");
+          logger.error("JWT Token has expired");
           handleException(response, "JWT Token has expired");
         }
       }

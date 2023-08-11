@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="schemaName" value="generated_app"></property>
+    <property name="author=" value="db-designer"></property>
+    <changeSet id="v1-01-01" author="${author}">
+    
+ <createTable schemaName="${schemaName}" tableName="Appointment">
+	<column name="AppointmentId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="DateOfappointment" type="TIMESTAMP" />
+    
+     <column name="Reasonproblem" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="PetOwner">
+	<column name="Pet_ownerId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="PetOwnername" type="VARCHAR(250)" />
+    
+     <column name="PetOwnerphone" type="BIGINT" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Veterian">
+	<column name="Vet_id" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="VetName" type="VARCHAR(250)" />
+    
+     <column name="VetSpecialization" type="VARCHAR(250)" />
+    
+     <column name="VetDescription" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Visit">
+	<column name="VisitHistoryId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Prescription" type="VARCHAR(250)" />
+    
+     <column name="Observations" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="VaccineScheduler">
+	<column name="Vaccine_id" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ScheduleVaccinefrom" type="TIMESTAMP" />
+    
+     <column name="ScheduleVaccineto" type="TIMESTAMP" />
+    
+     <column name="Recurrence" type="INTEGER" />
+    
+     <column name="RecurrenceType" type="VARCHAR(250)" />
+    
+     <column name="AlertPhonenum" type="BIGINT" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Image">
+	<column name="ImageId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ImageType" type="VARCHAR(250)" />
+    
+     <column name="ImageName" type="VARCHAR(250)" />
+    
+     <column name="UploadPrescription" type="VARCHAR(250)" />
+    
+ 	<column name="Content" type="BINARY"/>
+	<column name="DocFileType" type="VARCHAR(100)"/>
+	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Pet">
+	<column name="Pet_id" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="PetName" type="VARCHAR(250)" />
+    
+     <column name="PetCategory" type="VARCHAR(250)" />
+    
+     <column name="PetAge" type="VARCHAR(250)" />
+    
+     <column name="PetGender" type="VARCHAR(250)" />
+    
+     <column name="Breed" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="VisitScheduler">
+	<column name="Visit_id" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ScheduleVisitfrom" type="TIMESTAMP" />
+    
+     <column name="ScheduleVisitto" type="TIMESTAMP" />
+    
+     <column name="AlertPhonenum" type="BIGINT" />
+    
+     <column name="Recurrence" type="INTEGER" />
+    
+     <column name="RecurrenceType" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+	
+  <createTable schemaName="${schemaName}" tableName="VaccineSchedulerVetPetVaccineSchedular">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Vaccine_id" type="INTEGER" />
+	<column name="Pet_ownerId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VaccineSchedulerUploadingPrescription">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Vaccine_id" type="INTEGER" />
+	<column name="ImageId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="PetOwnerPetOwnerImage">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Pet_ownerId" type="INTEGER" />
+	<column name="ImageId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VisitVisitHistory">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="VisitHistoryId" type="INTEGER" />
+	<column name="Visit_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="PetOwnerOwns">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Pet_ownerId" type="INTEGER" />
+	<column name="Pet_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VaccineSchedulerVaccineVetPet">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Vaccine_id" type="INTEGER" />
+	<column name="Vet_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VisitSchedulerPetVisit">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Visit_id" type="INTEGER" />
+	<column name="Pet_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VisitVaccineHistory">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="VisitHistoryId" type="INTEGER" />
+	<column name="Vaccine_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="PetPetImage">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Pet_id" type="INTEGER" />
+	<column name="ImageId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VisitSchedulerVisitSchedular">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Visit_id" type="INTEGER" />
+	<column name="Vet_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VisitSchedulerVetPetVisitScheduler">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Visit_id" type="INTEGER" />
+	<column name="Pet_ownerId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="AppointmentVetAppointment">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="AppointmentId" type="INTEGER" />
+	<column name="Vet_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VeterianVetImage">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Vet_id" type="INTEGER" />
+	<column name="ImageId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VisitVisitPet">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="VisitHistoryId" type="INTEGER" />
+	<column name="Pet_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="AppointmentPetappointment">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="AppointmentId" type="INTEGER" />
+	<column name="Pet_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VaccineSchedulerPetvaccine">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="Vaccine_id" type="INTEGER" />
+	<column name="Pet_id" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VisitBookAppointmentHistory">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="VisitHistoryId" type="INTEGER" />
+	<column name="AppointmentId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="AppointmentVetpetappointment">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="AppointmentId" type="INTEGER" />
+	<column name="Pet_ownerId" type="INTEGER" />
+</createTable>
+
+ 
+	<addForeignKeyConstraint baseTableName="VaccineSchedulerVetPetVaccineSchedular" baseTableSchemaName="${schemaName}"  baseColumnNames="Vaccine_id" constraintName="PetOwner_Vaccine_id_fk"
+	                                  referencedTableName="VaccineScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vaccine_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VaccineSchedulerVetPetVaccineSchedular" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_ownerId" constraintName="PetOwner_Pet_ownerId_fk"
+	                                  referencedTableName="PetOwner" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_ownerId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VaccineSchedulerUploadingPrescription" baseTableSchemaName="${schemaName}"  baseColumnNames="Vaccine_id" constraintName="Image_Vaccine_id_fk"
+	                                  referencedTableName="VaccineScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vaccine_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VaccineSchedulerUploadingPrescription" baseTableSchemaName="${schemaName}"  baseColumnNames="ImageId" constraintName="Image_ImageId_fk"
+	                                  referencedTableName="Image" referencedTableSchemaName="${schemaName}" referencedColumnNames="ImageId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="PetOwnerPetOwnerImage" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_ownerId" constraintName="Image_Pet_ownerId_fk"
+	                                  referencedTableName="PetOwner" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_ownerId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="PetOwnerPetOwnerImage" baseTableSchemaName="${schemaName}"  baseColumnNames="ImageId" constraintName="Image_ImageId_fk"
+	                                  referencedTableName="Image" referencedTableSchemaName="${schemaName}" referencedColumnNames="ImageId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VisitVisitHistory" baseTableSchemaName="${schemaName}"  baseColumnNames="VisitHistoryId" constraintName="VisitScheduler_VisitHistoryId_fk"
+	                                  referencedTableName="Visit" referencedTableSchemaName="${schemaName}" referencedColumnNames="VisitHistoryId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VisitVisitHistory" baseTableSchemaName="${schemaName}"  baseColumnNames="Visit_id" constraintName="VisitScheduler_Visit_id_fk"
+	                                  referencedTableName="VisitScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Visit_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="PetOwnerOwns" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_ownerId" constraintName="Pet_Pet_ownerId_fk"
+	                                  referencedTableName="PetOwner" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_ownerId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="PetOwnerOwns" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_id" constraintName="Pet_Pet_id_fk"
+	                                  referencedTableName="Pet" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VaccineSchedulerVaccineVetPet" baseTableSchemaName="${schemaName}"  baseColumnNames="Vaccine_id" constraintName="Veterian_Vaccine_id_fk"
+	                                  referencedTableName="VaccineScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vaccine_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VaccineSchedulerVaccineVetPet" baseTableSchemaName="${schemaName}"  baseColumnNames="Vet_id" constraintName="Veterian_Vet_id_fk"
+	                                  referencedTableName="Veterian" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vet_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VisitSchedulerPetVisit" baseTableSchemaName="${schemaName}"  baseColumnNames="Visit_id" constraintName="Pet_Visit_id_fk"
+	                                  referencedTableName="VisitScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Visit_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VisitSchedulerPetVisit" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_id" constraintName="Pet_Pet_id_fk"
+	                                  referencedTableName="Pet" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VisitVaccineHistory" baseTableSchemaName="${schemaName}"  baseColumnNames="VisitHistoryId" constraintName="VaccineScheduler_VisitHistoryId_fk"
+	                                  referencedTableName="Visit" referencedTableSchemaName="${schemaName}" referencedColumnNames="VisitHistoryId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VisitVaccineHistory" baseTableSchemaName="${schemaName}"  baseColumnNames="Vaccine_id" constraintName="VaccineScheduler_Vaccine_id_fk"
+	                                  referencedTableName="VaccineScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vaccine_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="PetPetImage" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_id" constraintName="Image_Pet_id_fk"
+	                                  referencedTableName="Pet" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="PetPetImage" baseTableSchemaName="${schemaName}"  baseColumnNames="ImageId" constraintName="Image_ImageId_fk"
+	                                  referencedTableName="Image" referencedTableSchemaName="${schemaName}" referencedColumnNames="ImageId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VisitSchedulerVisitSchedular" baseTableSchemaName="${schemaName}"  baseColumnNames="Visit_id" constraintName="Veterian_Visit_id_fk"
+	                                  referencedTableName="VisitScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Visit_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VisitSchedulerVisitSchedular" baseTableSchemaName="${schemaName}"  baseColumnNames="Vet_id" constraintName="Veterian_Vet_id_fk"
+	                                  referencedTableName="Veterian" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vet_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VisitSchedulerVetPetVisitScheduler" baseTableSchemaName="${schemaName}"  baseColumnNames="Visit_id" constraintName="PetOwner_Visit_id_fk"
+	                                  referencedTableName="VisitScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Visit_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VisitSchedulerVetPetVisitScheduler" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_ownerId" constraintName="PetOwner_Pet_ownerId_fk"
+	                                  referencedTableName="PetOwner" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_ownerId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="AppointmentVetAppointment" baseTableSchemaName="${schemaName}"  baseColumnNames="AppointmentId" constraintName="Veterian_AppointmentId_fk"
+	                                  referencedTableName="Appointment" referencedTableSchemaName="${schemaName}" referencedColumnNames="AppointmentId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="AppointmentVetAppointment" baseTableSchemaName="${schemaName}"  baseColumnNames="Vet_id" constraintName="Veterian_Vet_id_fk"
+	                                  referencedTableName="Veterian" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vet_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VeterianVetImage" baseTableSchemaName="${schemaName}"  baseColumnNames="Vet_id" constraintName="Image_Vet_id_fk"
+	                                  referencedTableName="Veterian" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vet_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VeterianVetImage" baseTableSchemaName="${schemaName}"  baseColumnNames="ImageId" constraintName="Image_ImageId_fk"
+	                                  referencedTableName="Image" referencedTableSchemaName="${schemaName}" referencedColumnNames="ImageId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VisitVisitPet" baseTableSchemaName="${schemaName}"  baseColumnNames="VisitHistoryId" constraintName="Pet_VisitHistoryId_fk"
+	                                  referencedTableName="Visit" referencedTableSchemaName="${schemaName}" referencedColumnNames="VisitHistoryId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VisitVisitPet" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_id" constraintName="Pet_Pet_id_fk"
+	                                  referencedTableName="Pet" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="AppointmentPetappointment" baseTableSchemaName="${schemaName}"  baseColumnNames="AppointmentId" constraintName="Pet_AppointmentId_fk"
+	                                  referencedTableName="Appointment" referencedTableSchemaName="${schemaName}" referencedColumnNames="AppointmentId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="AppointmentPetappointment" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_id" constraintName="Pet_Pet_id_fk"
+	                                  referencedTableName="Pet" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VaccineSchedulerPetvaccine" baseTableSchemaName="${schemaName}"  baseColumnNames="Vaccine_id" constraintName="Pet_Vaccine_id_fk"
+	                                  referencedTableName="VaccineScheduler" referencedTableSchemaName="${schemaName}" referencedColumnNames="Vaccine_id"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VaccineSchedulerPetvaccine" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_id" constraintName="Pet_Pet_id_fk"
+	                                  referencedTableName="Pet" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_id"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VisitBookAppointmentHistory" baseTableSchemaName="${schemaName}"  baseColumnNames="VisitHistoryId" constraintName="Appointment_VisitHistoryId_fk"
+	                                  referencedTableName="Visit" referencedTableSchemaName="${schemaName}" referencedColumnNames="VisitHistoryId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VisitBookAppointmentHistory" baseTableSchemaName="${schemaName}"  baseColumnNames="AppointmentId" constraintName="Appointment_AppointmentId_fk"
+	                                  referencedTableName="Appointment" referencedTableSchemaName="${schemaName}" referencedColumnNames="AppointmentId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="AppointmentVetpetappointment" baseTableSchemaName="${schemaName}"  baseColumnNames="AppointmentId" constraintName="PetOwner_AppointmentId_fk"
+	                                  referencedTableName="Appointment" referencedTableSchemaName="${schemaName}" referencedColumnNames="AppointmentId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="AppointmentVetpetappointment" baseTableSchemaName="${schemaName}"  baseColumnNames="Pet_ownerId" constraintName="PetOwner_Pet_ownerId_fk"
+	                                  referencedTableName="PetOwner" referencedTableSchemaName="${schemaName}" referencedColumnNames="Pet_ownerId"/>
+ 
+	
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	    </changeSet>
+</databaseChangeLog>
