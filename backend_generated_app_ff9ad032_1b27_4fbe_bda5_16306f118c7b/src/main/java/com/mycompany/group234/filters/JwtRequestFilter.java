@@ -2,10 +2,10 @@ package com.mycompany.group234.filters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.refapps.trippin.Exception.ErrorResponse;
-import com.refapps.trippin.Exception.InvalidTokenException;
-import com.refapps.trippin.Exception.RestExceptionHandler;
-import com.refapps.trippin.util.JwtTokenUtil;
+package com.mycompany.group234.Exception.ErrorResponse;
+package com.mycompany.group234.Exception.InvalidTokenException;
+package com.mycompany.group234.Exception.RestExceptionHandler;
+package com.mycompany.group234.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
