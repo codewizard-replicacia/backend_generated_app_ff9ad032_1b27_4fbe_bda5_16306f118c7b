@@ -8,8 +8,8 @@ logging:
           jpa: TRACE      
 odata:
   jpa:
-    punit_name: Trippin
-    root_packages: com.refapps.trippin
+    punit_name: generated_app
+    root_packages: com.mycompany.group234
 server:
   port: 8080
 spring:
