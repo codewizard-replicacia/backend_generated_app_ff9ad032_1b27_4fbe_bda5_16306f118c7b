@@ -26,8 +26,8 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 @Component
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
-  private final JwtTokenUtil tokenUtil = new JwtTokenUtil();
-  private final RestExceptionHandler exceptionHandler = new RestExceptionHandler();
+  private final JwtTokenUtil tokenUtil;
+  private final RestExceptionHandler exceptionHandler;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
