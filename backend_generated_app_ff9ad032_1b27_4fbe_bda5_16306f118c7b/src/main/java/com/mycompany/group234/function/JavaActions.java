@@ -18,12 +18,16 @@ import com.mycompany.group234.Exception.InvalidInputException;
 import com.mycompany.group234.model.Appointment;
 import com.mycompany.group234.model.Pet;
 import com.mycompany.group234.model.PetOwner;
+import com.mycompany.group234.model.SchedularInfo;
 import com.mycompany.group234.model.VaccineScheduler;
 import com.mycompany.group234.model.Veterian;
 import com.mycompany.group234.model.VisitScheduler;
+import com.mycompany.group234.util.DateUtils;
 import com.mycompany.group234.util.JsonUtils;
 import com.mycompany.group234.util.NotificationClient;
 import com.mycompany.group234.util.Payload;
+import com.mycompany.group234.util.RecurranceType;
+import com.mycompany.group234.util.SchedularInfoType;
 import com.sap.olingo.jpa.metadata.core.edm.annotation.EdmAction;
 import com.sap.olingo.jpa.metadata.core.edm.annotation.EdmParameter;
 import com.sap.olingo.jpa.metadata.core.edm.mapper.extension.ODataAction;
@@ -80,9 +84,9 @@ public class JavaActions implements ODataAction {
 			NotificationClient client = new NotificationClient();
 			String message = "Your appointment is booked with Veterian Dr."+vetName+" for the date: "+dateOfAppointment+".";
 			if(!StringUtils.hasText(client.sendSms(phoneNumber, message))) {
-				log.info("Unable to send Notification.");
+				log.info("Unable to send Notification.",phoneNumber);
 			}else {
-				log.info("Notification Sent.");
+				log.info("Notification Sent.",phoneNumber);
 			}
 			return appointmentBooked.getAppointmentId().toString();
 		
@@ -105,7 +109,19 @@ public class JavaActions implements ODataAction {
 		visitScheduler.setScheduleVisitto(payloadObj.getToDate());
 		visitScheduler.setAlertPhonenum(Long.parseLong(payloadObj.getAlertPhoneNumber()));
 		visitScheduler.setRecurrence(Integer.parseInt(payloadObj.getRecurrence()));
-		visitScheduler.setRecurrenceType(payloadObj.getRecurrenceType());
+		
+		String recurrenceType = payloadObj.getRecurrenceType();
+		if(RecurranceType.WEEKLY.toString().equalsIgnoreCase(recurrenceType)) {
+			recurrenceType = RecurranceType.WEEKLY.toString();
+		}
+		if(RecurranceType.MONTHLY.toString().equalsIgnoreCase(recurrenceType)) {
+			recurrenceType = RecurranceType.MONTHLY.toString();
+		}
+		if(RecurranceType.YEARLY.toString().equalsIgnoreCase(recurrenceType)) {
+			recurrenceType = RecurranceType.YEARLY.toString();
+		}
+		
+		visitScheduler.setRecurrenceType(recurrenceType);
 
 		visitScheduler.getPetVisit().add(pet);
 		visitScheduler.getVisitSchedular().add(veterian);
@@ -114,6 +130,9 @@ public class JavaActions implements ODataAction {
 		entityManager.getTransaction().begin();
 		entityManager.persist(visitScheduler);
 		entityManager.getTransaction().commit();
+		
+		configureVisitScheduler(visitScheduler);
+		
 		return visitScheduler.getVisit_id().toString();
 	}
 
@@ -134,8 +153,19 @@ public class JavaActions implements ODataAction {
 		vaccineScheduler.setScheduleVaccineto(payloadObj.getToDate());
 		vaccineScheduler.setAlertPhonenum(Long.parseLong(payloadObj.getAlertPhoneNumber()));
 		vaccineScheduler.setRecurrence(Integer.parseInt(payloadObj.getRecurrence()));
-		vaccineScheduler.setRecurrenceType(payloadObj.getRecurrenceType());
-
+		
+		String recurrenceType = payloadObj.getRecurrenceType();
+		if(RecurranceType.WEEKLY.toString().equalsIgnoreCase(recurrenceType)) {
+			recurrenceType = RecurranceType.WEEKLY.toString();
+		}
+		if(RecurranceType.MONTHLY.toString().equalsIgnoreCase(recurrenceType)) {
+			recurrenceType = RecurranceType.MONTHLY.toString();
+		}
+		if(RecurranceType.YEARLY.toString().equalsIgnoreCase(recurrenceType)) {
+			recurrenceType = RecurranceType.YEARLY.toString();
+		}
+		
+		vaccineScheduler.setRecurrenceType(recurrenceType);
 		vaccineScheduler.getPetvaccine().add(pet);
 		vaccineScheduler.getVaccineVetPet().add(veterian);
 		vaccineScheduler.getVetPetVaccineSchedular().add(petOwner);
@@ -143,6 +173,9 @@ public class JavaActions implements ODataAction {
 		entityManager.getTransaction().begin();
 		entityManager.persist(vaccineScheduler);
 		entityManager.getTransaction().commit();
+		
+		configureVaccineScheduler(vaccineScheduler);
+		
 		return vaccineScheduler.getVaccine_id().toString();
 	}
 
@@ -205,5 +238,30 @@ public class JavaActions implements ODataAction {
 		}
 	}
 	
-
+	private void configureVisitScheduler(VisitScheduler visitScheduler) {
+		SchedularInfo schedularInfo = new SchedularInfo();
+		schedularInfo.setRemainingRecurrance(visitScheduler.getRecurrence());
+		schedularInfo.setRecurranceType(visitScheduler.getRecurrenceType());
+		schedularInfo.setType(SchedularInfoType.VISIT.toString());
+		schedularInfo.setNextNotifiedDate(DateUtils.getNextDateFromDate(visitScheduler.getScheduleVisitfrom(), visitScheduler.getRecurrenceType()));
+		schedularInfo.setTypeId(visitScheduler.getVisit_id());
+		
+		entityManager.getTransaction().begin();
+		entityManager.persist(schedularInfo);
+		entityManager.getTransaction().commit();
+	}
+	
+	private void configureVaccineScheduler(VaccineScheduler vaccineScheduler) {
+		SchedularInfo schedularInfo = new SchedularInfo();
+		schedularInfo.setRemainingRecurrance(vaccineScheduler.getRecurrence());
+		schedularInfo.setRecurranceType(vaccineScheduler.getRecurrenceType());
+		schedularInfo.setType(SchedularInfoType.VACCINE.toString());
+		schedularInfo.setNextNotifiedDate(DateUtils.getNextDateFromDate(vaccineScheduler.getScheduleVaccinefrom(), vaccineScheduler.getRecurrenceType()));
+		schedularInfo.setTypeId(vaccineScheduler.getVaccine_id());
+		
+		entityManager.getTransaction().begin();
+		entityManager.persist(schedularInfo);
+		entityManager.getTransaction().commit();
+	}
+	
 }

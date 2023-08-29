@@ -1,12 +1,14 @@
 package com.mycompany.group234.repository;
 
 
-import com.mycompany.group234.model.VaccineScheduler;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import java.util.List;
+import com.mycompany.group234.model.VaccineScheduler;
 
 
 @Component
@@ -20,4 +22,7 @@ public class VaccineSchedulerRepository extends SimpleJpaRepository<VaccineSched
     public List<VaccineScheduler> findAll() {
         return em.createNativeQuery("Select * from \"generated_app\".\"VaccineScheduler\"", VaccineScheduler.class).getResultList();
     }
+	public VaccineScheduler getByVaccineId(Integer id) {
+		return (VaccineScheduler) em.createNativeQuery("Select * from generated_app.\"VaccineScheduler\" WHERE \"Vaccine_id\" ="+id, VaccineScheduler.class).getSingleResult();
+	}
 }

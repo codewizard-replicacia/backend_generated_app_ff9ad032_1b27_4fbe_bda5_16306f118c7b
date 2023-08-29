@@ -378,4 +378,18 @@
  
  
 	    </changeSet>
+	    <changeSet id="v1-01-02" author="${author}">
+			<createTable schemaName="${schemaName}"
+				tableName="SchedularInfo">
+				<column name="SchedularInfoId" type="SERIAL"
+					autoIncrement="true">
+					<constraints primaryKey="true" nullable="false" />
+				</column>
+				<column name="Type" type="VARCHAR(250)" />
+				<column name="NextNotifiedDate" type="DATE" />
+				<column name="RecurranceType" type="VARCHAR(250)" />
+				<column name="RemainingRecurrance" type="INTEGER" />
+				<column name="TypeId" type="INTEGER" />
+			</createTable>
+	    </changeSet>
 </databaseChangeLog>
