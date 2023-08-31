@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import com.mycompany.group234.Exception.EntityNotFoundException;
 import com.mycompany.group234.Exception.InvalidInputException;
 import com.mycompany.group234.model.Appointment;
+import com.mycompany.group234.model.Image;
 import com.mycompany.group234.model.Pet;
 import com.mycompany.group234.model.PetOwner;
 import com.mycompany.group234.model.SchedularInfo;
@@ -169,6 +170,11 @@ public class JavaActions implements ODataAction {
 		vaccineScheduler.getPetvaccine().add(pet);
 		vaccineScheduler.getVaccineVetPet().add(veterian);
 		vaccineScheduler.getVetPetVaccineSchedular().add(petOwner);
+		
+		if(payloadObj.getImageId() != null) {
+			Image prescription = getImageById(payloadObj.getImageId());			
+			vaccineScheduler.getUploadingPrescription().add(prescription);
+		}
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(vaccineScheduler);
@@ -213,6 +219,18 @@ public class JavaActions implements ODataAction {
 		} catch (NoResultException e) {
 			log.error("Error while fetching Veterian by Name", e);
 			throw new EntityNotFoundException("Veterian not found by this name: " + veterianName, 400,
+					Locale.getDefault(), "400");
+		}
+	}
+	
+	private Image getImageById(Integer imageId) throws EntityNotFoundException {
+		try {
+			String query = "SELECT * FROM generated_app.\"Image\"\n" + "WHERE \"ImageId\" = '" + imageId + "'";
+			Image image= (Image) entityManager.createNativeQuery(query, Image.class).getSingleResult();
+			return image;
+		} catch (NoResultException e) {
+			log.error("Error while fetching Veterian by Name", e);
+			throw new EntityNotFoundException("Image not found by this id: " + imageId, 400,
 					Locale.getDefault(), "400");
 		}
 	}

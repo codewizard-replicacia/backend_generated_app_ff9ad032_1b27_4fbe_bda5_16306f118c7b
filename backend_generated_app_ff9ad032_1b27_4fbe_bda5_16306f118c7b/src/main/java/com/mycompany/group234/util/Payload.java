@@ -22,6 +22,7 @@ public class Payload {
 	String gender;
 	String recurrenceType;
 	String recurrence;
+	Integer imageId;
 	
 	public static Payload of(Map<String, String> payloadMap) throws Exception {
 		Payload payload = new Payload();
@@ -38,6 +39,9 @@ public class Payload {
 		payload.setGender ( payloadMap.get("gender"));
 		payload.setRecurrenceType ( payloadMap.get("recurrenceType"));
 		payload.setRecurrence ( payloadMap.get("recurrence"));
+		if(payloadMap.containsKey("imageId")) {
+			payload.setImageId(Integer.parseInt(payloadMap.get("imageId")));
+		}
 		return payload;
 	}
 }
