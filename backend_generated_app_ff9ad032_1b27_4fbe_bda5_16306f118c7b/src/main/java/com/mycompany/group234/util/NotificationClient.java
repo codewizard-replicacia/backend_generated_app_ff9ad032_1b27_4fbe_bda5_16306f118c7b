@@ -68,13 +68,15 @@ public class NotificationClient {
 		String result = null;
 
 		try {
-			String apiUrl = "http://"+ipConfigMap.get("ip")+":"+ipConfigMap.get("port")+"/app/notification/sms2?phone="+phone;
-			String payload = message;
+			String apiUrl = "http://"+ipConfigMap.get("ip")+":"+ipConfigMap.get("port")+"/app/notification/sms";
+			Map<String, String> payload =new HashMap<>();
+			payload.put("phoneNumber", phone);
+			payload.put("message", message);
 
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("Content-Type", "application/json");
 
-			HttpEntity<String> httpEntity = new HttpEntity<>(payload, headers);
+			HttpEntity<Map<String, String>> httpEntity = new HttpEntity<>(payload, headers);
 			ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, httpEntity, String.class);
 
 			if (response.getStatusCode() == HttpStatus.OK) {
