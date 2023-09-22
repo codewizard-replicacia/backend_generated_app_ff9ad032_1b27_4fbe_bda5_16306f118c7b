@@ -4306,5 +4306,118 @@
 					"response": []
 				}
 			]
+		},
+		
+		{
+			"name": "Actions",
+			"item": [{
+					"name": "BookAppoinment",
+					"request": {
+						"method": "POST",
+						"header": [{
+							"key": "Authorization",
+							"value": "Bearer replicia",
+							"type": "default"
+						}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n \"Payload\":\"{\\\"ownerName\\\":\\\"Deevakar Singh\\\",\\\"phoneNumber\\\":\\\"9898989898\\\",\\\"petName\\\":\\\"Anish Pilla\\\",\\\"petCategory\\\":\\\"Dog\\\",\\\"petBreed\\\":\\\"husky\\\",\\\"petAge\\\":\\\"5\\\",\\\"gender\\\":\\\"Male\\\",\\\"veterian\\\":\\\"Vasudev Acharya\\\",\\\"reasonForAppointment\\\":\\\"illness\\\",\\\"dateofAppoinment\\\":\\\"05-10-2023\\\"}\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{servletname}}/BookAppointment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{servletname}}",
+								"BookAppointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VisitSchedular",
+					"request": {
+						"method": "POST",
+						"header": [{
+							"key": "Authorization",
+							"value": "Bearer replicia",
+							"type": "default"
+						}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n \"Payload\":\"{\\\"ownerName\\\":\\\"Deevakar Singh\\\",\\\"phoneNumber\\\":\\\"9898989898\\\",\\\"petName\\\":\\\"Anish Pilla\\\",\\\"petCategory\\\":\\\"Dog\\\",\\\"petBreed\\\":\\\"husky\\\",\\\"petAge\\\":\\\"5\\\",\\\"gender\\\":\\\"Male\\\",\\\"veterian\\\":\\\"VasudevAcharya\\\",\\\"toDate\\\":\\\"05-10-2023\\\",\\\"fromDate\\\":\\\"22-08-2023\\\",\\\"alertPhoneNumber\\\":\\\"9696965655\\\",\\\"recurrenceType\\\":\\\"Monthly\\\",\\\"recurrence\\\":\\\"2\\\"  }\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{servletname}}/CreateVisitSchedular",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{servletname}}",
+								"CreateVisitSchedular"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VaccineSchedular",
+					"event": [{
+						"listen": "prerequest",
+						"script": {
+							"exec": [
+								""
+							],
+							"type": "text/javascript"
+						}
+					}],
+					"request": {
+						"method": "POST",
+						"header": [{
+								"key": "Authorization",
+								"value": "Bearer replicia",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n \"Payload\":\"{\\\"ownerName\\\":\\\"Deevakar Singh\\\",\\\"phoneNumber\\\":\\\"9898989898\\\",\\\"petName\\\":\\\"Anish Pilla\\\",\\\"petCategory\\\":\\\"Dog\\\",\\\"petBreed\\\":\\\"husky\\\",\\\"petAge\\\":\\\"5\\\",\\\"gender\\\":\\\"Male\\\",\\\"veterian\\\":\\\"Vasudev Acharya\\\",\\\"toDate\\\":\\\"05-10-2023\\\",\\\"fromDate\\\":\\\"1-09-2023\\\",\\\"alertPhoneNumber\\\":\\\"9696965655\\\",\\\"recurrenceType\\\":\\\"Monthly\\\",\\\"recurrence\\\":\\\"2\\\" ,\\\"imageId\\\":\\\"2\\\"  }\"\n \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{servletname}}/CreateVaccineSchedular",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{servletname}}",
+								"CreateVaccineSchedular"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]}
